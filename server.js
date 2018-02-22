@@ -13,6 +13,10 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static('public'));
+app.use('/img', express.static('img'));
+app.use('/js', express.static('js'));
+app.use('/fonts', express.static('fonts'));
+app.use('/style', express.static('style'));
 
 app.listen(port, function () {
     console.log('Server fired up on', port);

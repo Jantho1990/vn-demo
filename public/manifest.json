@@ -5,6 +5,7 @@
 	"theme_color": "#F7F7F7",
 	"orientation": "landscape",
 	"display": "fullscreen",
+	"description": "A simple VN Demo in Monogatari",
 	"start_url": "index.html",
 	"icons": [
 		{
