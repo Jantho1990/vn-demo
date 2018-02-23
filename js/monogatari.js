@@ -1210,7 +1210,8 @@ $_ready(function () {
 		if ($_(this).data("do") != "null" && $_(this).data("do") != "") {
 			const back = ["show", "play", "display", "hide", "scene", "stop", "pause"];
 			try {
-				$_("[data-ui='choices']").hide();
+				// $_("[data-ui='choices']").hide();
+				document.querySelector("[data-ui='choices']").classList.remove('show');
 				$_("[data-ui='choices']").html("");
 				if (back.indexOf($_(this).data("do").split(" ")[0]) > -1) {
 					engine.Step -= 1;
@@ -1300,6 +1301,9 @@ $_ready(function () {
 				textObject = new Typed ("[data-ui='say']", typedConfiguration);
 			}
 		} else {
+			if (Array.isArray(dialog)) {
+				dialog = dialog.join('<br><br>');
+			}
 			$_("[data-ui='say']").html (dialog);
 			if (autoPlay !== null) {
 				autoPlay = setTimeout (function () {
@@ -1404,7 +1408,8 @@ $_ready(function () {
 
 	function hideGameElements () {
 		// Hide in-game elements
-		$_("[data-ui='choices']").hide();
+		// $_("[data-ui='choices']").hide();
+		document.querySelector("[data-ui='choices']").classList.remove('show');
 		$_("[data-ui='choices']").html("");
 
 		$_("[data-component='modal']").removeClass("active");
@@ -2140,6 +2145,10 @@ $_ready(function () {
 					break;
 
 				case "object":
+					if (typeof statement.Page != "undefined") {
+						$_("[data-ui='choices']").html("");
+						displayDialog(statement.Page.Content)
+					}
 					if (typeof statement.Choice != "undefined") {
 						$_("[data-ui='choices']").html("");
 						for (const i in statement.Choice) {
@@ -2167,7 +2176,8 @@ $_ready(function () {
 									analyseStatement(choice);
 								}
 							}
-							$_("[data-ui='choices']").show();
+							// $_("[data-ui='choices']").show();
+							document.querySelector("[data-ui='choices']").classList.add('show');
 						}
 					} else if (typeof statement.Conditional != "undefined") {
 						const condition = statement.Conditional;

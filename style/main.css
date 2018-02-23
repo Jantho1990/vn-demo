@@ -17,3 +17,17 @@
 section>div:not(.row)[data-ui="text"] {
     width: 80vw;
 }
+
+/* Choice Model */
+[data-ui="choices"] {
+    display: none;
+    background: rgba(0, 0, 0, 0.75) none repeat scroll 0% 0%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+[data-ui="choices"].show {
+    display: flex;
+}
