@@ -1315,7 +1315,9 @@ $_ready(function () {
 				dialog = dialog.join('<br><br>');
 			}
 			console.log(dialog);
-			let newHtml = $_("[data-ui='say']").html() + '<br><br>' + dialog;
+			let newHtml = $_("[data-ui='say']").html() != ''
+				? $_("[data-ui='say']").html() + '<br><br>' + dialog
+				: dialog;
 			console.log(newHtml);
 			$_("[data-ui='say']").html(newHtml);
 			if (autoPlay !== null) {
