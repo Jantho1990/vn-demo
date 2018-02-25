@@ -372,7 +372,7 @@ var script = {
 						? "\"Oh, you little--\" I took a step towards her, intending to grab her hand. Instead, my legs entangled themselves beneath me and I toppled ignomiously to the floor."
 						: "\"I'll-- I'll give you what's-- I mean, you'll be sorry--\" I stopped, again mysteriously at a loss for words.",
 					"Abner chuckled. \"Might as well give it up, Santas. You can't win.\"",
-					"\"Indeed,\" Alicia added, waving her hand once more as I pushed myself back to my feet. \"Might want to think twice before you annoy a sorceress.\"",
+					"\"Indeed,\" Alicia added, waving her hand once more. \"Might want to think twice before you annoy a sorceress.\"",
 					"I harrumphed and turned away from Alicia. She had manipulated my mind so easily. As other sorcerers and sorceresses from the party gathered in greeting, I couldn't help but wonder in fear what would happen should any one of these powerful humans go rogue...",
 				]
 			}
