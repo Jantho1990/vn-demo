@@ -138,11 +138,11 @@ let choices = {
 	greetAlicia: {
 		options: {
 			"Introduce Yourself": {
-				Text: "Introduce yourself",
+				Text: "Introduce myself",
 				Do: "jump+ SapphireCity1_TongueTied"
 			},
 			"Proffer your hand": {
-				Text: "Proffer your hand",
+				Text: "Proffer my hand",
 				Do: "jump+ SapphireCity1_Klutz"
 			}
 		}
