@@ -81,21 +81,21 @@ var choices = {
 	scribe: {
 		"Scribe Yes": {
 			"Text": "Yes, but...",
-			"Do": "jump ScribeYes"
+			"Do": "jump+ ScribeYes"
 		},
 		"Scribe No": {
 			"Text": "I was, but not anymore...",
-			"Do": "jump ScribeNo"
+			"Do": "jump+ ScribeNo"
 		}
 	},
 	jobOffer: {
 		"Accept Offer": {
 			"Text": "Alright, I'll do it.",
-			"Do": "jump AcceptOffer"
+			"Do": "jump+ AcceptOffer"
 		},
 		"Reject Offer": {
 			"Text": "It's too risky for my tastes.",
-			"Do": "jump RejectOffer"
+			"Do": "jump+ RejectOffer"
 		}
 	}
 }
@@ -138,11 +138,11 @@ var script = {
 			"Choice": {
 				"Call out": {
 					"Text": "Call out to him.",
-					"Do": "jump CallOut"
+					"Do": "jump+ CallOut"
 				},
 				"Stay silent": {
 					"Text": "I'd rather no one notice my sad state...",
-					"Do": "jump StaySilent"
+					"Do": "jump+ StaySilent"
 				}
 			}
 		}
@@ -177,7 +177,7 @@ var script = {
 				]
 			}
 		},
-		"jump Scene2"
+		"jump+ Scene2"
 	],
 
 	"StaySilent": [
@@ -189,7 +189,7 @@ var script = {
 				]
 			}
 		},
-		"jump Scene2"
+		"jump+ Scene2"
 	],
 
 	"ScribeYes": [
@@ -201,7 +201,7 @@ var script = {
 				]
 			}
 		},
-		"jump Scene3"
+		"jump+ Scene3"
 	],
 
 	"ScribeNo": [
@@ -213,7 +213,7 @@ var script = {
 				]
 			}
 		},
-		"jump Scene3"
+		"jump+ Scene3"
 	],
 
 	"AcceptOffer": [

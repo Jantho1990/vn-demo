@@ -1204,6 +1204,7 @@ $_ready(function () {
 		e.preventDefault();
 	});
 
+	// Seems like this is a choice parser.
 	$_("body").on("click", "[data-do]", function () {
 		hideCentered();
 		shutUp();
@@ -1218,7 +1219,9 @@ $_ready(function () {
 					analyseStatement($_(this).data("do"));
 					engine.Step += 1;
 				} else {
-					if ($_(this).data("do").split(" ")[0] == "jump") {
+					if ($_(this).data("do").split(" ")[0] == "jump"
+						|| $_(this).data("do").split(" ")[0] == "jump+") {
+						console.log('i eat things', $_(this).data("do"), $_(this));
 						analyseStatement($_(this).data("do"));
 						engine.Step += 1;
 					} else {
@@ -1247,6 +1250,7 @@ $_ready(function () {
 			} else {
 				hideCentered();
 				shutUp();
+				console.log(engine.Step, label)
 				analyseStatement(label[engine.Step]);
 				engine.Step += 1;
 			}
@@ -1263,12 +1267,14 @@ $_ready(function () {
 
 		// Destroy the previous textObject so the text is rewritten.
 		// If not destroyed, the text would be appended instead of replaced.
+		console.log('to', textObject);
 		if (typeof textObject != "undefined") {
+			console.log(textObject);
 			textObject.destroy ();
 		}
 
 		// Remove contents from the dialog area.
-		$_("[data-ui='say']").html ("");
+		//$_("[data-ui='say']").html ("");
 
 		// Check if the typing animation flag is set to true in order to show it
 		if (animation === true) {
@@ -1304,7 +1310,10 @@ $_ready(function () {
 			if (Array.isArray(dialog)) {
 				dialog = dialog.join('<br><br>');
 			}
-			$_("[data-ui='say']").html (dialog);
+			console.log(dialog);
+			let newHtml = $_("[data-ui='say']").html() + '<br><br>' + dialog;
+			console.log(newHtml);
+			$_("[data-ui='say']").html(newHtml);
 			if (autoPlay !== null) {
 				autoPlay = setTimeout (function () {
 					if (canProceed() && finishedTyping) {
@@ -1317,6 +1326,13 @@ $_ready(function () {
 			}
 			finishedTyping = true;
 		}
+	}
+
+	/**
+	 * Append dialog instead of replacing it.
+	 */
+	function appendDialog () {
+
 	}
 
 	// Assert the result of a function
@@ -1872,10 +1888,19 @@ $_ready(function () {
 							break;
 
 						case "jump":
+							console.log('jumped')
 							engine.Step = 0;
 							label = game[parts[1]];
 							engine.Label = parts[1];
 							whipeText();
+							analyseStatement(label[engine.Step]);
+							break;
+
+						case "jump+":
+							console.log('jumped+');
+							engine.Step = 0;
+							label = game[parts[1]];
+							engine.Label = parts[1];
 							analyseStatement(label[engine.Step]);
 							break;
 
@@ -2148,6 +2173,7 @@ $_ready(function () {
 					if (typeof statement.Page != "undefined") {
 						$_("[data-ui='choices']").html("");
 						displayDialog(statement.Page.Content)
+
 					}
 					if (typeof statement.Choice != "undefined") {
 						$_("[data-ui='choices']").html("");
