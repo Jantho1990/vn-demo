@@ -111,7 +111,7 @@ let Pages = {
 			}
 		},
 		{
-			"Choice": choices.scribe
+			"InlineChoice": choices.scribe
 		}
 	],
 }
@@ -135,7 +135,7 @@ var script = {
 			}
 		},
 		{
-			"Choice": {
+			"InlineChoice": {
 				"Call out": {
 					"Text": "Call out to him.",
 					"Do": "jump+ CallOut"
@@ -164,7 +164,7 @@ var script = {
 				]
 			}
 		},
-		{ Choice: choices.jobOffer }
+		{ InlineChoice: choices.jobOffer }
 	],
 
 	"CallOut": [

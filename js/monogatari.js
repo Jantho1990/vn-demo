@@ -1204,7 +1204,10 @@ $_ready(function () {
 		e.preventDefault();
 	});
 
-	// Seems like this is a choice parser.
+	// Handles game-area clicks, including choice reactions.
+	// Not sure why the #game handler is needed, though.
+	// It covers the same area as this.
+	// For that matter, why aren't both handlers triggered?
 	$_("body").on("click", "[data-do]", function () {
 		hideCentered();
 		shutUp();
@@ -1214,6 +1217,7 @@ $_ready(function () {
 				// $_("[data-ui='choices']").hide();
 				document.querySelector("[data-ui='choices']").classList.remove('show');
 				$_("[data-ui='choices']").html("");
+				$_("[data-ui='inline-choices']").remove();
 				if (back.indexOf($_(this).data("do").split(" ")[0]) > -1) {
 					engine.Step -= 1;
 					analyseStatement($_(this).data("do"));
@@ -2172,11 +2176,46 @@ $_ready(function () {
 				case "object":
 					if (typeof statement.Page != "undefined") {
 						$_("[data-ui='choices']").html("");
+						$_("[data-ui='inline-choices']").remove();
 						displayDialog(statement.Page.Content)
 
-					}
-					if (typeof statement.Choice != "undefined") {
+					} else if (typeof statement.InlineChoice != "undefined") {
+						console.log('st', statement)
+						console.log('la', label)
+						$_("[data-ui='say']").append('<div data-ui="inline-choices" class="inline-choices-container"></div>');
+						// console.log('h', htmlContainer)
+						for (const i in statement.InlineChoice) {
+							const choice = label[engine.Step].InlineChoice[i];
+							if (typeof choice.Condition != "undefined" && choice.Condition != "") {
+
+								assertAsync(label[engine.Step].InlineChoice[i].Condition).then(function () {
+									if (typeof choice.Class != "undefined") {
+										$_("[data-ui='inline-choices']").append("<button data-do='" + choice.Do + "' class='" + choice.Class + "'>" + choice.Text + "</button>");
+									} else {
+										$_("[data-ui='inline-choices']").append("<button data-do='" + choice.Do + "'>" + choice.Text + "</button>");
+									}
+									block = false;
+								}).catch(function () {
+									block = false;
+								});
+							} else {
+								if (typeof choice == "object") {
+									if (typeof choice.Class != "undefined") {
+										$_("[data-ui='inline-choices']").append("<button data-do='" + choice.Do + "' class='" + choice.Class + "'>" + choice.Text + "</button>");
+									} else {
+										$_("[data-ui='inline-choices']").append("<button data-do='" + choice.Do + "'>" + choice.Text + "</button>");
+									}
+								} else if (typeof choice == "string") {
+									analyseStatement(choice);
+								}
+							}
+							// $_("[data-ui='choices']").show();
+							// document.querySelector("[data-ui='choices']").classList.add('show');
+						}
+					} else if (typeof statement.Choice != "undefined") {
 						$_("[data-ui='choices']").html("");
+						console.log('statement', statement)
+						console.log('label', label)
 						for (const i in statement.Choice) {
 							const choice = label[engine.Step].Choice[i];
 							if (typeof choice.Condition != "undefined" && choice.Condition != "") {

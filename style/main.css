@@ -31,3 +31,23 @@ section>div:not(.row)[data-ui="text"] {
 [data-ui="choices"].show {
     display: flex;
 }
+
+/* Inline Choice */
+[data-ui="inline-choices"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+[data-ui="inline-choices"] button {
+    width: auto;
+    height: auto;
+    padding: 1rem;
+}
+
+/* Say */
+[data-ui="say"] {
+    padding: 1rem;
+}
