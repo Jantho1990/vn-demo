@@ -57,3 +57,7 @@ section>div:not(.row)[data-ui="text"] {
         flex-direction: column;
     }
 }
+
+/* Style Tags */
+i {font-style: italic;}
+b {font-weight: bold;}
