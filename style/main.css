@@ -51,3 +51,9 @@ section>div:not(.row)[data-ui="text"] {
 [data-ui="say"] {
     padding: 1rem;
 }
+
+@media screen and (max-width: 767px) {
+    [data-ui="inline-choices"] {
+        flex-direction: column;
+    }
+}
