@@ -338,39 +338,17 @@ var script = {
 		"jump+ SapphireCity1_2"
 	],
 	SapphireCity1_Ultimatum: [
-		/*() => {
-			let ret = "";
-			switch (decisions.greetedAliciaBy) {
-				case 'gesture':
-					ret = "\"Oh, you little--\" I took a step towards her, intending to grab her hand. Instead, my legs entangled themselves beneath me and I toppled ignomiously to the floor."
-					break;
-				case 'speech':
-					ret = "\"I'll-- I'll give you what's-- I mean, you'll be sorry--\" I stopped, again mysteriously at a loss for words."
-					break;
-			}
-			decisions.iAmCheating = {
-				Page: {
-					Content: [
-						"<em>Mind-altering? Did she...did she do something to me? How dare she!</em>",
-						"I shot a smoldering glare at the sorceress. \"You better not do that again, or I'll--\"",
-						"Alicia smirked and waved her hand again. \"Sorry, what?\"",
-						iAmCheating[decisions.greetedAliciaBy],
-						"Abner chuckled. \"Might as well give it up, Santas. You can't win.\"",
-						"\"Indeed,\" Alicia added, waving her hand once more as I pushed myself back to my feet. \"Might want to think twice before you annoy a sorceress.\"",
-						"I harrumphed and turned away from Alicia. She had manipulated my mind so easily. As other sorcerers and sorceresses from the party gathered in greeting, I couldn't help but wonder in fear what would happen should any one of these powerful humans go rogue...",
-					]
-				}
-			}
-		},*/
 		{
 			Page: {
 				Content: [
 					"<em>Mind-altering? Did she...did she do something to me? How dare she!</em>",
 					"I shot a smoldering glare at the sorceress. \"You better not do that again, or I'll--\"",
 					"Alicia smirked and waved her hand again. \"Sorry, what?\"",
-					decisions.greetedAliciaBy === 'gesture'
-						? "\"Oh, you little--\" I took a step towards her, intending to grab her hand. Instead, my legs entangled themselves beneath me and I toppled ignomiously to the floor."
-						: "\"I'll-- I'll give you what's-- I mean, you'll be sorry--\" I stopped, again mysteriously at a loss for words.",
+					{
+						Decision: 'greetedAliciaBy',
+						'gesture': "\"Oh, you little--\" I took a step towards her, intending to grab her hand. Instead, my legs entangled themselves beneath me and I toppled ignomiously to the floor.",
+						'speech': "\"I'll-- I'll give you what's-- I mean, you'll be sorry--\" I stopped, again mysteriously at a loss for words."
+					},
 					"Abner chuckled. \"Might as well give it up, Santas. You can't win.\"",
 					"\"Indeed,\" Alicia added, waving her hand once more. \"Might want to think twice before you annoy a sorceress.\"",
 					"I harrumphed and turned away from Alicia. She had manipulated my mind so easily. As other sorcerers and sorceresses from the party gathered in greeting, I couldn't help but wonder in fear what would happen should any one of these powerful humans go rogue...",
@@ -385,7 +363,12 @@ var script = {
 				Content: [
 					"<em>Mind-altering? Did she...did she do something to me?</em>",
 					"\"What did you do?\" I asked.",
-					"She held up her hand, giving me a good look at the ruby-encrusted ring upon her middle finger. \"An ancient item which I am an expert at wielding,\" she explained. \"It's called Erasmo's Ruby Ring, and it grants a user of sufficient ability the power to confound another's mind.\"",
+					"Alicia held up her hand, giving me a good look at the ruby-encrusted ring upon her middle finger. \"An ancient item which I am an expert at wielding,\" she explained. \"It's called Erasmo's Ruby Ring, and it grants a user of sufficient ability the power to confound another's mind.\"",
+					{
+						Decision: 'greetedAliciaBy',
+						gesture: "With a devilish smile, she added, \"In this case, by making your body unsure of itself.\"",
+						speech: "With a devilish smile, she added, \"In this case, by tangling your tongue.\""
+					},
 					"\"Really? That small ring...did that to me?\"",
 					"\"Mmhmm. You still haven't told me your name, by the way.\"",
 					"\"Santas,\" I replied. \"Pleased to meet you.\"",

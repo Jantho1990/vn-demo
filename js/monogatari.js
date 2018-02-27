@@ -2179,7 +2179,23 @@ $_ready(function () {
 					if (typeof statement.Page != "undefined") {
 						$_("[data-ui='choices']").html("");
 						$_("[data-ui='inline-choices']").remove();
-						displayDialog(statement.Page.Content)
+						// Resolve any flags
+						let Page = {
+							Content: statement.Page.Content.map((item) => {
+								switch (typeof item) {
+									case 'object':
+										if (typeof item.Decision !== 'undefined') {
+											console.log('CHOICE', decisions[item.Decision])
+											item = item[decisions[item.Decision]]
+										}
+										break;
+									default:
+										
+								}
+								return item
+							})
+						}
+						displayDialog(Page.Content)
 
 					} else if (typeof statement.InlineChoice != "undefined") {
 						console.log('st', statement)
