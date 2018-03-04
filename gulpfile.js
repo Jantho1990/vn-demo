@@ -18,6 +18,8 @@ const concat = require("gulp-concat");
 const rename = require("gulp-rename");
 const closureCompiler = require("google-closure-compiler").gulp();
 
+// var transpile = require('gulp-es6-module-transpiler');
+
 gulp.task("default", () => {
 	// place code for your default task here
 });
@@ -231,3 +233,9 @@ gulp.task("package:misc", () => {
 });
 
 gulp.task("package", ["package:js", "package:style", "package:misc"]);
+
+gulp.task('bundle-scripts', function(){
+	return gulp.src('js/story/*.js')
+		.pipe(concat('all-scripts.js'))
+		.pipe(gulp.dest('js/'))
+})
