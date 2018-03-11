@@ -2328,7 +2328,7 @@ $_ready(function () {
 			}
 		} catch (e) {
 			console.error("An error ocurred while while trying to analyse the following statement: " + statement + "\n" + e);
-			next();
+			// next(); // NO!
 		}
 	}
 });

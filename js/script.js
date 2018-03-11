@@ -98,8 +98,10 @@ var characters = {
 // };
 
 var script = {
-	Intro,
-	SapphireCity1
+	"ActI": [
+		Intro,
+		SapphireCity1
+	]
 }
 
 global.script = script;

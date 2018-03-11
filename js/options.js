@@ -15,7 +15,7 @@
 var engine = {
 
 	// Initial Label *
-	"Label": "Start",
+	"Label": "ActI",
 
 	// Number of AutoSave Slots
 	"Slots": 10,

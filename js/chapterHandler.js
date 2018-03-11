@@ -4,7 +4,7 @@
  * this handler. Because I really don't want to add
  * more bloat to the switch-case.
  */
-const chapterHandler = function () {
+const ChapterHandler = function () {
 
     /************
      * Variables
@@ -85,7 +85,7 @@ const chapterHandler = function () {
         } else {
             // We have no idea what this is.
             // Kill it with error!
-            throw new Exception('Unknown outline action: ' + action)
+            throw new Error('Unknown outline action: ' + action)
         }
     }
     
@@ -96,9 +96,9 @@ const chapterHandler = function () {
     function handleOutlineChoiceAction (action) {
         let choice = Chapter.Choices[action]
         let buttons = ''
-        choice.forEach((option) => {
+        Object.keys(choice).forEach((option) => {
             // No frills for now, just render the choice.
-            buttons += createInlineChoiceButton(option)
+            buttons += createInlineChoiceButton(choice[option])
         })
         let inlineChoices = createInlineChoicesContainer(buttons)
         currentDialog += inlineChoices
@@ -128,7 +128,8 @@ const chapterHandler = function () {
         // at any non-page member of the outline.
         let {Outline} = Chapter
         let stop = false
-        Outline.slice(0, Step).forEach((item, i) => {
+        let slicedOutline = Outline.slice(Step)
+        slicedOutline.forEach((item, i) => {
             if (stop) { return }
             if (typeof Chapter.Pages[item] !== 'undefined') {
                 let page = Chapter.Pages[item]
@@ -162,7 +163,7 @@ const chapterHandler = function () {
                 ret = processParagraphObject(paragraph)
                 break
             default:
-                throw new Exception('Illegal paragraph: ' + paragraph)
+                throw new Error('Illegal paragraph: ' + paragraph)
         }
 
         return ret
@@ -185,7 +186,7 @@ const chapterHandler = function () {
     function processParagraphObject (obj) {
         // Make sure this isn't an array.
         if (Array.isArray(obj)) {
-            throw new Exception('Paragraph object cannot be an array.')
+            throw new Error('Paragraph object cannot be an array.')
         }
 
         let ret
@@ -199,7 +200,7 @@ const chapterHandler = function () {
         } else {
             // We have no idea what this object is.
             // Barf and die.
-            throw new Exception('Unknown paragraph object: ' + obj)
+            throw new Error('Unknown paragraph object: ' + obj)
         }
 
         return ret
@@ -311,4 +312,4 @@ const chapterHandler = function () {
         processChapter,
         loadChapters
     }
-}
+}()
