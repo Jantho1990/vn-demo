@@ -1,7 +1,7 @@
 "use strict";
 // Disabled until I can get imports working.
-import Intro from './chapters/Intro'
-import SapphireCity1 from './chapters/SapphireCity1'
+import Intro from './story/Intro'
+import SapphireCity1 from './story/SapphireCity1'
 
 
 /* exported messages */
@@ -97,9 +97,6 @@ var characters = {
 // 	...SapphireCity1
 // };
 
-var script = {
-	Intro,
-	SapphireCity1
-}
+var script = Object.assign({}, Intro, SapphireCity1)
 
 export default script;

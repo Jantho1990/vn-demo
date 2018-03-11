@@ -163,3 +163,4 @@ let chapter_SapphireCity1 = {
         ]
     }
 }
+module.exports = chapter_SapphireCity1

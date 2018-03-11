@@ -253,3 +253,13 @@ gulp.task('bundle-modules', function(){
 		.pipe(source('bundle-scripts.js'))
 		.pipe(gulp.dest('js/'))
 })
+
+gulp.task('bundle-chapters', function(){
+	let bundler = browserify('js/script.js')
+	bundler.transform(babelify)
+
+	bundler.bundle()
+		.on('error', (err) => console.error(err))
+		.pipe(source('script-chapters.js'))
+		.pipe(gulp.dest('js/'))
+})
