@@ -212,12 +212,9 @@ var chapter_SapphireCity1 = {
 module.exports = chapter_SapphireCity1;
 
 },{}],3:[function(require,module,exports){
+(function (global){
 "use strict";
 // Disabled until I can get imports working.
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
 var _Intro = require('./chapters/Intro');
 
@@ -311,6 +308,7 @@ var script = {
 	SapphireCity1: _SapphireCity2.default
 };
 
-exports.default = script;
+global.script = script;
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./chapters/Intro":1,"./chapters/SapphireCity1":2}]},{},[3]);

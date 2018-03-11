@@ -102,4 +102,4 @@ var script = {
 	SapphireCity1
 }
 
-export default script;
+global.script = script;
