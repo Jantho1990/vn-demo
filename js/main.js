@@ -20,10 +20,10 @@
 			bottomBar(ev)
 		})
 		document.querySelector('[data-ui="text"]').addEventListener('mousedown', function (ev) {
-			console.log('bongos');
+			// console.log('bongos');
             // window.setTimeout(bottomBar(ev, true), 200)
             bottomBarClick(ev)
-			console.log('sniggers')
+			// console.log('sniggers')
 		})
 	}
 
@@ -32,7 +32,7 @@
         let height = ev.target.clientHeight
         let pos = ev.target.scrollTop
         let p = height + pos
-        console.log('bongos', 'bottom', bottom, 'height', height, 'pos', pos, 'p', p)
+        // console.log('bongos', 'bottom', bottom, 'height', height, 'pos', pos, 'p', p)
         // if (bottom > height) {
 			document.querySelector('[data-ui="text"').classList.add('unread')
 		// }
@@ -44,12 +44,12 @@
 		let height = ev.target.clientHeight
 		let pos = ev.target.scrollTop
 		let p = height + pos
-        console.log('bottom', bottom, 'height', height, 'pos', pos, 'p', p)
+        // console.log('bottom', bottom, 'height', height, 'pos', pos, 'p', p)
         if (bottom > height) {
 			if (p === bottom && ev.target.classList.contains('unread')) {
 				ev.target.classList.remove('unread')
 			} else if (p !== bottom && ev.target.classList.contains('unread') === false) {
-				console.log('chimichangas')
+				// console.log('chimichangas')
 				ev.target.classList.add('unread')
 			}
 		}

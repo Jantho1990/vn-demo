@@ -118,9 +118,9 @@ const ChapterHandler = function () {
      * Prepare the dialog to be rendered in the
      * text box.
      */
-    function prepareDialog () {
+    function prepareDialog (clearCurrentDialog = true) {
         // Clear the value of the current dialog.
-        currentDialog = ''
+        currentDialog = clearCurrentDialog ? '' : currentDialog
 
         // Starting on the current Step,
         // go through the outline and
@@ -231,6 +231,7 @@ const ChapterHandler = function () {
      * @param {object} chapterStatement 
      */
     function handleChapterSave (chapterStatement) {
+        console.log('erpo')
         if (typeof Chapter === "undefined") {
             ({ Chapter } = chapterStatement)
             processChapterSave()
@@ -256,6 +257,18 @@ const ChapterHandler = function () {
         // Get rid of anything that was
         // previously on the screen.
         clearTextBox()
+    }
+
+    /**
+     * Handle a chapter jump.
+     */
+    function handleJump (pageName) {
+        console.log('boo')
+        // Append the page to the container
+        let page = Chapter.Pages[pageName]
+        currentDialog = loadPageContent(page)
+        Step += 1
+        renderDialog()
     }
 
     /**
@@ -285,7 +298,12 @@ const ChapterHandler = function () {
      */
     function processChapter (chapterStatement) {
         // If this is a new chapter, store it.
-        handleChapterSave(chapterStatement)
+        // If it's a string, a jump wants us to
+        // load the choice's page.
+        console.log('chapterStatemet', typeof chapterStatement, chapterStatement)
+        typeof chapterStatement === 'string' 
+            ? handleJump(chapterStatement)
+            : handleChapterSave(chapterStatement)
 
         // Get rid of the inline choices container.
         removeInlineChoicesContainer()

@@ -1910,6 +1910,11 @@ $_ready(function () {
 							analyseStatement(label[engine.Step]);
 							break;
 
+						case "chapter+":
+							console.log('parts', parts[1])
+							ChapterHandler.processChapter(parts[1]);
+							break;
+
 						case "stop":
 							if (parts[1] == "music") {
 								musicPlayer.removeAttribute("loop");

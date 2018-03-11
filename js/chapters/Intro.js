@@ -14,31 +14,31 @@ let chapter_Intro = {
 			"greetAbner": {
 				"Call out": {
 					"Text": "Call out to him.",
-					"Do": "jump+ CallOut"
+					"Do": "chapter+ CallOut"
 				},
 				"Stay silent": {
 					"Text": "I'd rather no one notice my sad state...",
-					"Do": "jump+ StaySilent"
+					"Do": "chapter+ StaySilent"
 				}
 			},
 			scribe: {
 				"Scribe Yes": {
 					"Text": "Yes, but...",
-					"Do": "jump+ ScribeYes"
+					"Do": "chapter+ ScribeYes"
 				},
 				"Scribe No": {
 					"Text": "I was, but not anymore...",
-					"Do": "jump+ ScribeNo"
+					"Do": "chapter+ ScribeNo"
 				}
 			},
 			jobOffer: {
 				"Accept Offer": {
 					"Text": "Alright, I'll do it.",
-					"Do": "jump+ AcceptOffer"
+					"Do": "chapter+ AcceptOffer"
 				},
 				"Reject Offer": {
 					"Text": "It's too risky for my tastes.",
-					"Do": "jump+ RejectOffer"
+					"Do": "chapter+ RejectOffer"
 				}
 			}
 		},
