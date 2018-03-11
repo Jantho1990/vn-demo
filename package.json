@@ -14,9 +14,15 @@
   },
   "homepage": "https://monogatari.io",
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.0",
     "google-closure-compiler": "^20151216.2.0",
     "gulp": "^3.9.1",
     "gulp-atom-electron": "^1.7.1",
+    "gulp-babel": "^7.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-cssnano": "^2.1.2",
     "gulp-download-stream": "0.0.13",
@@ -31,7 +37,8 @@
     "gulp-zip": "^3.2.0",
     "run-sequence": "^1.2.2",
     "stylelint": "^7.12.0",
-    "stylelint-config-standard": "^16.0.0"
+    "stylelint-config-standard": "^16.0.0",
+    "vinyl-source-stream": "^2.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

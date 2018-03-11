@@ -54,7 +54,7 @@ let choices = {
                     "<em>Mind-altering? Did she...did she do something to me? How dare she!</em>",
                     "I shot a smoldering glare at the sorceress. \"You better not do that again, or I'll--\"",
                     "Alicia smirked and waved her hand again. \"Sorry, what?\"",
-                    this.KlutzMethod(decisions.greetedAliciaBy),
+                    // this.KlutzMethod(decisions.greetedAliciaBy),
                     "Abner chuckled. \"Might as well give it up, Santas. You can't win.\"",
                     "\"Indeed,\" Alicia added, waving her hand once more as I pushed myself back to my feet. \"Might want to think twice before you annoy a sorceress.\"",
                     "I harrumphed and turned away from Alicia. She had manipulated my mind so easily. As other sorcerers and sorceresses from the party gathered in greeting, I couldn't help but wonder in fear what would happen should any one of these powerful humans go rogue...",
@@ -133,4 +133,4 @@ var script = {
     ]
 }
 
-module.exports = script;
+export default script;
