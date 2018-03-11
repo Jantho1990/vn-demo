@@ -1,6 +1,5 @@
 // A global container for flags.
-const Flags = {
-    data: {},
-    get [expr]() { return data[expr] },
-    set [expr](val) { data[expr] = val }
-}
+const Flags = new Proxy ({data: {}}, {
+    get: (target, name) => target.data[name],
+    set: (target, name, val) => target.data[name] = val
+});
