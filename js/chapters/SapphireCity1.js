@@ -1,6 +1,10 @@
 // A mock of what a chapter object should look like
 let chapter_SapphireCity1 = {
     "Chapter": {
+        // The internal name of the chapter.
+        // The engine uses this to distinguish
+        // what chapter it is.
+        "Name": "SapphireCity1",
         // You can choose to include a Title, which will get
         // splashed across the screen before delving into the content.
         "Title": "Sapphire City",
@@ -151,9 +155,9 @@ let chapter_SapphireCity1 = {
         ],
         "Outline": [
             "SapphireCity1_1",
-            "inlineChoice greetAlicia",
+            "greetAlicia",
             "SapphireCity1_2",
-            "inlineChoice responseToAlicia",
+            "responseToAlicia",
             // Calling "End" in the outline will trigger the End Sequence after the chapter is over.
             "end"
         ]

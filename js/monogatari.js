@@ -2176,6 +2176,24 @@ $_ready(function () {
 					break;
 
 				case "object":
+					if (typeof statement.Chapter !== "undefined") {
+						// We need to find a way to process
+						// the various aspects of a chapter
+						// in parts while not breaking the
+						// rest of the engine.
+
+						// Decrement the step so the engine doesn't
+						// skip to the next chapter on next click.
+						engine.Step -= 1;
+
+						// We will need a way to intercept jump+
+						// commands and reinterpret them as
+						// chapter jump commands.
+						// Maybe that should be a separate type
+						// of jump.
+
+						let chapter = ChapterHandler.processChapter(statement)
+					}
 					if (typeof statement.Page != "undefined") {
 						$_("[data-ui='choices']").html("");
 						$_("[data-ui='inline-choices']").remove();
@@ -2198,8 +2216,6 @@ $_ready(function () {
 						displayDialog(Page.Content)
 
 					} else if (typeof statement.InlineChoice != "undefined") {
-						console.log('st', statement)
-						console.log('la', label)
 						$_("[data-ui='say']").append('<div data-ui="inline-choices" class="inline-choices-container"></div>');
 						// console.log('h', htmlContainer)
 						for (const i in statement.InlineChoice) {

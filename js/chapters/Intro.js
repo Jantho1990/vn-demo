@@ -1,6 +1,10 @@
 // A mock of what a chapter object should look like
 let chapter_Intro = {
     "Chapter": {
+        // The internal name of the chapter.
+        // The engine uses this to distinguish
+        // what chapter it is.
+        "Name": "Intro",
         // You can choose to include a Title, which will get
         // splashed across the screen before delving into the content.
         "Title": "Descent Into Chaos",
