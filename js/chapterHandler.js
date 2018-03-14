@@ -121,6 +121,18 @@ const ChapterHandler = function () {
     }
 
     /**
+     * Set flags for a page.
+     */
+    function setPageFlags (page) {
+        if(typeof page.Flags !== 'undefined') {
+            Object.keys(page.Flags).forEach((flagName) => {
+                let f = flagName.split('.')
+                Flags[f[0]][f[1]] = page.Flags[flagName]
+            })
+        }
+    }
+
+    /**
      * Load content from a Page
      */
     function loadPageContent (page) {
@@ -138,7 +150,6 @@ const ChapterHandler = function () {
         // Clear the value of the current dialog.
         currentDialog = clearCurrentDialog ? '' : currentDialog
 
-        console.log('pages', Chapter.Pages)
         // Starting on the current Step,
         // go through the outline and
         // append page content until arriving
@@ -150,6 +161,7 @@ const ChapterHandler = function () {
             if (stop) { return }
             if (typeof Chapter.Pages[item] !== 'undefined') {
                 let page = Chapter.Pages[item]
+                setPageFlags(page)
                 currentDialog = currentDialog !== ''
                     ? currentDialog + '<br><br>' + loadPageContent(page)
                     : loadPageContent(page)
@@ -291,6 +303,7 @@ const ChapterHandler = function () {
         removeInlineChoicesContainer()
         // Append the page to the container
         let page = Chapter.Pages[pageName]
+        setPageFlags(page)
         currentDialog = loadPageContent(page)
         Step += 1
         renderDialog()
@@ -308,6 +321,7 @@ const ChapterHandler = function () {
                     : null
                 : Flags[Chapter.Name] = { flag: Chapter.Flags[flag] }
         })
+        console.log('Global Flags', Flags)
     }
 
 
