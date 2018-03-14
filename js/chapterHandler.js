@@ -138,6 +138,7 @@ const ChapterHandler = function () {
         // Clear the value of the current dialog.
         currentDialog = clearCurrentDialog ? '' : currentDialog
 
+        console.log('pages', Chapter.Pages)
         // Starting on the current Step,
         // go through the outline and
         // append page content until arriving
@@ -274,9 +275,13 @@ const ChapterHandler = function () {
         // previously on the screen.
         clearTextBox()
 
+        // Reset the handler step.
+        Step = 0
+
         // We obviously aren't finished with the 
         // chapter yet.
         chapterFinished = false
+        console.log(Chapter)
     }
 
     /**
