@@ -85,8 +85,7 @@ const ChapterHandler = function () {
     function handleOutlineAction (action) {
         // Check to see if this is the end.
         if (action.toLowerCase() === 'end') {
-            // Trigger End Sequence here
-            // ...but not today.
+            endGame()
         
         // Check to see if this is the 
         // end of the chapter.
@@ -257,7 +256,6 @@ const ChapterHandler = function () {
      */
     function resetContainerScrollbar () {
         document.querySelector("[data-ui='text']").scrollTop = 0        
-        console.log('box scroll reset')
     }
 
     /**
@@ -304,6 +302,15 @@ const ChapterHandler = function () {
         chapterFinished = false
     }
 
+    // TODO: Refactor handleJump and 
+    // processChapterSave to both use
+    // a handlePage function to handle
+    // rendering changes (or something)
+    // so we can DRY up the code a bit.
+
+    // Also so implementing endgame functionality
+    // is less of a pain in the butt.
+
     /**
      * Handle a chapter jump.
      */
@@ -347,7 +354,11 @@ const ChapterHandler = function () {
      * End the game.
      */
     function endGame () {
-
+        alert('The game is over! (This is a temporary message until a proper endgame sequence is developed.')
+        // Show main menu
+        // $_("section").hide();
+        // playAmbient();
+        // $_("[data-menu='main']").show();
     }
 
 
@@ -355,9 +366,6 @@ const ChapterHandler = function () {
      * These are the functions we will expose
      * to functions outside of the handler.
      ***************************************/
-
-    // This is a temp failcounter
-    let failcounter = 0
 
     /**
      * Take the chapter statement and process it.

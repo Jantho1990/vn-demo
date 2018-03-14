@@ -10,7 +10,7 @@
  * Listen to the data-ui-text scroll.
  */
 (function listenToScroll(document) {
-	console.log('i ran');
+	// console.log('i ran');
 	document.addEventListener('DOMContentLoaded', function () {
 		ooo()
 	})
