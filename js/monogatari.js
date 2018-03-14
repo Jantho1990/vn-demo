@@ -1225,7 +1225,6 @@ $_ready(function () {
 				} else {
 					if ($_(this).data("do").split(" ")[0] == "jump"
 						|| $_(this).data("do").split(" ")[0] == "jump+") {
-						console.log('i eat things', $_(this).data("do"), $_(this));
 						analyseStatement($_(this).data("do"));
 						engine.Step += 1;
 					} else {
@@ -1254,7 +1253,6 @@ $_ready(function () {
 			} else {
 				hideCentered();
 				shutUp();
-				console.log(engine.Step, label)
 				analyseStatement(label[engine.Step]);
 				engine.Step += 1;
 			}
@@ -1271,9 +1269,7 @@ $_ready(function () {
 
 		// Destroy the previous textObject so the text is rewritten.
 		// If not destroyed, the text would be appended instead of replaced.
-		console.log('to', textObject);
 		if (typeof textObject != "undefined") {
-			console.log(textObject);
 			textObject.destroy ();
 		}
 
@@ -1314,11 +1310,9 @@ $_ready(function () {
 			if (Array.isArray(dialog)) {
 				dialog = dialog.join('<br><br>');
 			}
-			console.log(dialog);
 			let newHtml = $_("[data-ui='say']").html() != ''
 				? $_("[data-ui='say']").html() + '<br><br>' + dialog
 				: dialog;
-			console.log(newHtml);
 			$_("[data-ui='say']").html(newHtml);
 			if (autoPlay !== null) {
 				autoPlay = setTimeout (function () {
@@ -1894,7 +1888,6 @@ $_ready(function () {
 							break;
 
 						case "jump":
-							console.log('jumped')
 							engine.Step = 0;
 							label = game[parts[1]];
 							engine.Label = parts[1];
@@ -1903,7 +1896,6 @@ $_ready(function () {
 							break;
 
 						case "jump+":
-							console.log('jumped+');
 							engine.Step = 0;
 							label = game[parts[1]];
 							engine.Label = parts[1];
@@ -1911,7 +1903,6 @@ $_ready(function () {
 							break;
 
 						case "chapter+":
-							console.log('parts', parts[1])
 							ChapterHandler.processChapter(parts[1]);
 							break;
 
@@ -2197,7 +2188,13 @@ $_ready(function () {
 						// Maybe that should be a separate type
 						// of jump.
 
-						let chapter = ChapterHandler.processChapter(statement)
+						let nextChapter = ChapterHandler.processChapter(statement);
+						if (nextChapter !== null) {
+							engine.Step += 2;
+							console.log(nextChapter, engine.Step, label, game)
+							nextChapter = null;
+							analyseStatement(label[engine.Step])
+						}
 					}
 					if (typeof statement.Page != "undefined") {
 						$_("[data-ui='choices']").html("");
@@ -2208,7 +2205,6 @@ $_ready(function () {
 								switch (typeof item) {
 									case 'object':
 										if (typeof item.Decision !== 'undefined') {
-											console.log('CHOICE', decisions[item.Decision])
 											item = item[decisions[item.Decision]]
 										}
 										break;
@@ -2222,7 +2218,6 @@ $_ready(function () {
 
 					} else if (typeof statement.InlineChoice != "undefined") {
 						$_("[data-ui='say']").append('<div data-ui="inline-choices" class="inline-choices-container"></div>');
-						// console.log('h', htmlContainer)
 						for (const i in statement.InlineChoice) {
 							const choice = label[engine.Step].InlineChoice[i];
 							if (typeof choice.Condition != "undefined" && choice.Condition != "") {
@@ -2253,8 +2248,6 @@ $_ready(function () {
 						}
 					} else if (typeof statement.Choice != "undefined") {
 						$_("[data-ui='choices']").html("");
-						console.log('statement', statement)
-						console.log('label', label)
 						for (const i in statement.Choice) {
 							const choice = label[engine.Step].Choice[i];
 							if (typeof choice.Condition != "undefined" && choice.Condition != "") {

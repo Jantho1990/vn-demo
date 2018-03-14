@@ -29,6 +29,16 @@ const ChapterHandler = function () {
     let currentDialog = ''
 
     /**
+     * Has the current chapter ended
+     */
+    let chapterFinished = false
+
+    /**
+     * The name of the next chapter.
+     */
+    let nextChapter = ''
+
+    /**
      * The value for paragraph spacing.
      */
     const spacing = '<br><br>'
@@ -51,8 +61,10 @@ const ChapterHandler = function () {
      * Clear the text box.
      */
     function clearTextBox () {
+        $_("[data-ui='say']").html("")
         $_("[data-ui='choices']").html("")
         $_("[data-ui='inline-choices']").remove()
+        console.log('textbox cleared')
     }
 
     /**
@@ -77,10 +89,14 @@ const ChapterHandler = function () {
         if (action.toLowerCase() === 'end') {
             // Trigger End Sequence here
             // ...but not today.
-        }
-
+        
+        // Check to see if this is the 
+        // end of the chapter.
+        } else if (action.indexOf('nextChapter') !== -1) {
+            chapterFinished = true
+            nextChapter = action.split(' ')[1]
         // Check to see if this is a choice
-        if (typeof Chapter.Choices[action] !== 'undefined') {
+        } else if (typeof Chapter.Choices[action] !== 'undefined') {
             handleOutlineChoiceAction(action)
         } else {
             // We have no idea what this is.
@@ -231,7 +247,6 @@ const ChapterHandler = function () {
      * @param {object} chapterStatement 
      */
     function handleChapterSave (chapterStatement) {
-        console.log('erpo')
         if (typeof Chapter === "undefined") {
             ({ Chapter } = chapterStatement)
             processChapterSave()
@@ -250,6 +265,7 @@ const ChapterHandler = function () {
      * new chapter.
      */
     function processChapterSave () {
+        console.log('chapter save')
         // Save the Chapter's flags to the global
         // Flag container.
         saveChapterFlags()
@@ -257,13 +273,17 @@ const ChapterHandler = function () {
         // Get rid of anything that was
         // previously on the screen.
         clearTextBox()
+
+        // We obviously aren't finished with the 
+        // chapter yet.
+        chapterFinished = false
     }
 
     /**
      * Handle a chapter jump.
      */
     function handleJump (pageName) {
-        console.log('boo')
+        removeInlineChoicesContainer()
         // Append the page to the container
         let page = Chapter.Pages[pageName]
         currentDialog = loadPageContent(page)
@@ -291,16 +311,26 @@ const ChapterHandler = function () {
      * to functions outside of the handler.
      ***************************************/
 
+    // This is a temp failcounter
+    let failcounter = 0
+
     /**
      * Take the chapter statement and process it.
      * 
      * @param {*} chapter 
      */
     function processChapter (chapterStatement) {
+        failcounter++
+        if(failcounter > 15) {
+            throw new Error('failcounter triggered')
+            return null
+        } else {
+            console.log(failcounter, '/15 failcounter')
+        }
+
         // If this is a new chapter, store it.
         // If it's a string, a jump wants us to
         // load the choice's page.
-        console.log('chapterStatemet', typeof chapterStatement, chapterStatement)
         typeof chapterStatement === 'string' 
             ? handleJump(chapterStatement)
             : handleChapterSave(chapterStatement)
@@ -315,6 +345,12 @@ const ChapterHandler = function () {
         // Render the dialog into the text box.
         renderDialog()
 
+        // If the chapter is finished, return
+        // something so we can load the next
+        // chapter.
+        return chapterFinished
+            ? nextChapter
+            : null
     }
 
     /**
