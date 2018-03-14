@@ -2191,8 +2191,6 @@ $_ready(function () {
 						let nextChapter = ChapterHandler.processChapter(statement);
 						if (nextChapter !== null) {
 							engine.Step += 2; // needs to be +2 because we decremented earlier, otherwise this triggers an infinite loop
-							console.log(nextChapter, engine.Step, label, game)
-							nextChapter = null;
 							analyseStatement(label[engine.Step])
 						}
 					}

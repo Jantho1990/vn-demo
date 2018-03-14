@@ -34,6 +34,11 @@ const ChapterHandler = function () {
     let chapterFinished = false
 
     /**
+     * Is this the initial chapter load?
+     */
+    let initialChapterLoad = false
+
+    /**
      * The name of the next chapter.
      */
     let nextChapter = ''
@@ -49,13 +54,6 @@ const ChapterHandler = function () {
      * handler and are not exposed to external
      * access.
      ***************************************/
-
-    /**
-     * Add an inline choice to the text box.
-     */
-    function addInlineChoice () {
-
-    }
 
     /**
      * Clear the text box.
@@ -254,6 +252,15 @@ const ChapterHandler = function () {
     }
 
     /**
+     * Reset the text box container scroll 
+     * to the top.
+     */
+    function resetContainerScrollbar () {
+        document.querySelector("[data-ui='text']").scrollTop = 0        
+        console.log('box scroll reset')
+    }
+
+    /**
      * Handle saving the current chapter
      * to the handler.
      * 
@@ -278,7 +285,9 @@ const ChapterHandler = function () {
      * new chapter.
      */
     function processChapterSave () {
-        console.log('chapter save')
+        // Yes, this is the initial chapter load
+        initialChapterLoad = true
+
         // Save the Chapter's flags to the global
         // Flag container.
         saveChapterFlags()
@@ -293,7 +302,6 @@ const ChapterHandler = function () {
         // We obviously aren't finished with the 
         // chapter yet.
         chapterFinished = false
-        console.log(Chapter)
     }
 
     /**
@@ -321,7 +329,25 @@ const ChapterHandler = function () {
                     : null
                 : Flags[Chapter.Name] = { flag: Chapter.Flags[flag] }
         })
-        console.log('Global Flags', Flags)
+    }
+
+    /**
+     * Steps to run before finishing chapter 
+     * processing.
+     */
+    function finishChapterProcessing () {
+        // Ensure initialChapterLoad is false
+        if (initialChapterLoad) {
+            resetContainerScrollbar()
+            initialChapterLoad = false
+        }
+    }
+
+    /**
+     * End the game.
+     */
+    function endGame () {
+
     }
 
 
@@ -339,14 +365,6 @@ const ChapterHandler = function () {
      * @param {*} chapter 
      */
     function processChapter (chapterStatement) {
-        failcounter++
-        if(failcounter > 15) {
-            throw new Error('failcounter triggered')
-            return null
-        } else {
-            console.log(failcounter, '/15 failcounter')
-        }
-
         // If this is a new chapter, store it.
         // If it's a string, a jump wants us to
         // load the choice's page.
@@ -363,6 +381,10 @@ const ChapterHandler = function () {
 
         // Render the dialog into the text box.
         renderDialog()
+
+        // Do anything that needs to happen after
+        // a chapter has been processed.
+        finishChapterProcessing()
 
         // If the chapter is finished, return
         // something so we can load the next
