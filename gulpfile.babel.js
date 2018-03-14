@@ -238,11 +238,11 @@ gulp.task("package:misc", () => {
 
 gulp.task("package", ["package:js", "package:style", "package:misc"]);
 
-gulp.task('bundle-scripts', function(){
-	return gulp.src('js/story/*.js')
-		.pipe(concat('all-scripts.js'))
-		.pipe(gulp.dest('js/'))
-})
+// gulp.task('bundle-scripts', function(){
+// 	return gulp.src('js/story/*.js')
+// 		.pipe(concat('all-scripts.js'))
+// 		.pipe(gulp.dest('js/'))
+// })
 
 gulp.task('bundle-modules', function(){
 	let bundler = browserify('js/script.js')
