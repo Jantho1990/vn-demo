@@ -41,7 +41,7 @@ const ChapterHandler = function () {
     /**
      * Game should end on next chapter action.
      */
-    let gameOver = false
+    let gameShouldEnd = false
 
     /**
      * The name of the next chapter.
@@ -90,7 +90,7 @@ const ChapterHandler = function () {
     function handleOutlineAction (action) {
         // Check to see if this is the end.
         if (action.toLowerCase() === 'end') {
-            endGame()
+            prepareEndGame()
         
         // Check to see if this is the 
         // end of the chapter.
@@ -290,6 +290,9 @@ const ChapterHandler = function () {
         // chapter yet.
         chapterFinished = false
 
+        // The game should not end yet.
+        gameShouldEnd = false
+
         // Save the Chapter's flags to the global
         // Flag container.
         saveChapterFlags()
@@ -321,7 +324,13 @@ const ChapterHandler = function () {
             ? currentDialog + '<br><br>' + loadPageContent(page)
             : loadPageContent(page)
         Step += 1
-        console.log('prepared')
+
+        // If an End property has been set,
+        // trigger the end game.
+        if (typeof page.End !== 'undefined') {
+            prepareEndGame()
+        }
+        console.log('overly prepared')
     }
 
     /**
@@ -360,14 +369,21 @@ const ChapterHandler = function () {
     }
 
     /**
-     * End the game.
+     * Prepare the handler to end the game.
+     */
+    function prepareEndGame () {
+        gameShouldEnd = true
+    }
+
+    /**
+     * End the game and run any preparations
+     * necessary.
      */
     function endGame () {
-        alert('The game is over! (This is a temporary message until a proper endgame sequence is developed.')
-        // Show main menu
-        // $_("section").hide();
-        // playAmbient();
-        // $_("[data-menu='main']").show();
+        // Here you would put any other actions you
+        // want the game to take before being booted
+        // back to the main menu.
+        alert('Game has ended! This is a temporary message.')
     }
 
 
@@ -382,6 +398,14 @@ const ChapterHandler = function () {
      * @param {*} chapter 
      */
     function processChapter (chapterStatement) {
+        // If the game should end, we don't need
+        // to do anything else but run the end
+        // game logic.
+        if (gameShouldEnd) {
+            endGame()
+            return 'end'
+        }
+        
         // If this is a new chapter, store it.
         // If it's a string, a jump wants us to
         // load the choice's page.

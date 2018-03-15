@@ -2182,16 +2182,20 @@ $_ready(function () {
 						// skip to the next chapter on next click.
 						engine.Step -= 1;
 
-						// We will need a way to intercept jump+
-						// commands and reinterpret them as
-						// chapter jump commands.
-						// Maybe that should be a separate type
-						// of jump.
-
-						let nextChapter = ChapterHandler.processChapter(statement);
-						if (nextChapter !== null) {
-							engine.Step += 2; // needs to be +2 because we decremented earlier, otherwise this triggers an infinite loop
-							analyseStatement(label[engine.Step])
+						// Process the chapter. If a value is returned,
+						// evaluate what it is and react accordingly.
+						let nextAction = ChapterHandler.processChapter(statement);
+						if (nextAction !== null) {
+							switch (nextAction) {
+								case 'end':
+									endGame();
+									engine.Step = 0;
+									break;
+								default:
+									// Go to the next chapter.
+									engine.Step += 2; // needs to be +2 because we decremented earlier, otherwise this triggers an infinite loop
+									analyseStatement(label[engine.Step])
+							}
 						}
 					}
 					if (typeof statement.Page != "undefined") {
