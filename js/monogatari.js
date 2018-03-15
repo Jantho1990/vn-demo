@@ -2177,17 +2177,13 @@ $_ready(function () {
 
 				case "object":
 					if (typeof statement.Chapter !== "undefined") {
-						// We need to find a way to process
-						// the various aspects of a chapter
-						// in parts while not breaking the
-						// rest of the engine.
-
 						// Decrement the step so the engine doesn't
 						// skip to the next chapter on next click.
 						engine.Step -= 1;
 
-						// Process the chapter. If a value is returned,
-						// evaluate what it is and react accordingly.
+						// Process the chapter. If a value is 
+						// returned, evaluate what it is and 
+						// react accordingly.
 						let nextAction = ChapterHandler.processChapter(statement);
 						if (nextAction !== null) {
 							switch (nextAction) {

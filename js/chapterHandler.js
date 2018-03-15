@@ -139,7 +139,7 @@ const ChapterHandler = function () {
     function loadPageContent (page) {
         return page.Content.reduce((carry, paragraph, i) => {
             paragraph = prepareParagraph(paragraph)
-            return i > 0 ? carry + spacing + paragraph : paragraph
+            return i > 0 ? carry + '<p>' + paragraph + '</p>' : '<p>' + paragraph + '</p>'
         }, '')
     }
 
@@ -244,7 +244,7 @@ const ChapterHandler = function () {
      */
     function renderDialog () {
         let newHtml = $_("[data-ui='say']").html() != ''
-            ? $_("[data-ui='say']").html() + spacing + currentDialog
+            ? $_("[data-ui='say']").html() + currentDialog
             : currentDialog
         $_("[data-ui='say']").html(newHtml)
     }
@@ -308,7 +308,7 @@ const ChapterHandler = function () {
         let page = Chapter.Pages[pageName]
         setPageFlags(page)
         currentDialog = currentDialog !== ''
-            ? currentDialog + '<br><br>' + loadPageContent(page)
+            ? currentDialog + loadPageContent(page)
             : loadPageContent(page)
         Step += 1
 
