@@ -39,6 +39,11 @@ const ChapterHandler = function () {
     let initialChapterLoad = false
 
     /**
+     * Game should end on next chapter action.
+     */
+    let gameOver = false
+
+    /**
      * The name of the next chapter.
      */
     let nextChapter = ''
@@ -157,12 +162,7 @@ const ChapterHandler = function () {
         slicedOutline.forEach((item, i) => {
             if (stop) { return }
             if (typeof Chapter.Pages[item] !== 'undefined') {
-                let page = Chapter.Pages[item]
-                setPageFlags(page)
-                currentDialog = currentDialog !== ''
-                    ? currentDialog + '<br><br>' + loadPageContent(page)
-                    : loadPageContent(page)
-                Step += 1
+                preparePage(item)
             } else {
                 handleOutlineAction(item)
                 stop = true
@@ -286,6 +286,10 @@ const ChapterHandler = function () {
         // Yes, this is the initial chapter load
         initialChapterLoad = true
 
+        // We obviously aren't finished with the 
+        // chapter yet.
+        chapterFinished = false
+
         // Save the Chapter's flags to the global
         // Flag container.
         saveChapterFlags()
@@ -296,14 +300,10 @@ const ChapterHandler = function () {
 
         // Reset the handler step.
         Step = 0
-
-        // We obviously aren't finished with the 
-        // chapter yet.
-        chapterFinished = false
     }
 
     // TODO: Refactor handleJump and 
-    // processChapterSave to both use
+    // preparDialog to both use
     // a handlePage function to handle
     // rendering changes (or something)
     // so we can DRY up the code a bit.
@@ -312,15 +312,24 @@ const ChapterHandler = function () {
     // is less of a pain in the butt.
 
     /**
+     * Prepare a page for rendering.
+     */
+    function preparePage(pageName) {
+        let page = Chapter.Pages[pageName]
+        setPageFlags(page)
+        currentDialog = currentDialog !== ''
+            ? currentDialog + '<br><br>' + loadPageContent(page)
+            : loadPageContent(page)
+        Step += 1
+        console.log('prepared')
+    }
+
+    /**
      * Handle a chapter jump.
      */
     function handleJump (pageName) {
         removeInlineChoicesContainer()
-        // Append the page to the container
-        let page = Chapter.Pages[pageName]
-        setPageFlags(page)
-        currentDialog = loadPageContent(page)
-        Step += 1
+        preparePage(pageName)
         renderDialog()
     }
 
