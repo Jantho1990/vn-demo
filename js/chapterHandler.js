@@ -67,7 +67,6 @@ const ChapterHandler = function () {
         $_("[data-ui='say']").html("")
         $_("[data-ui='choices']").html("")
         $_("[data-ui='inline-choices']").remove()
-        console.log('textbox cleared')
     }
 
     /**
@@ -290,9 +289,6 @@ const ChapterHandler = function () {
         // chapter yet.
         chapterFinished = false
 
-        // The game should not end yet.
-        gameShouldEnd = false
-
         // Save the Chapter's flags to the global
         // Flag container.
         saveChapterFlags()
@@ -304,15 +300,6 @@ const ChapterHandler = function () {
         // Reset the handler step.
         Step = 0
     }
-
-    // TODO: Refactor handleJump and 
-    // preparDialog to both use
-    // a handlePage function to handle
-    // rendering changes (or something)
-    // so we can DRY up the code a bit.
-
-    // Also so implementing endgame functionality
-    // is less of a pain in the butt.
 
     /**
      * Prepare a page for rendering.
@@ -330,7 +317,6 @@ const ChapterHandler = function () {
         if (typeof page.End !== 'undefined') {
             prepareEndGame()
         }
-        console.log('overly prepared')
     }
 
     /**
@@ -380,10 +366,22 @@ const ChapterHandler = function () {
      * necessary.
      */
     function endGame () {
-        // Here you would put any other actions you
-        // want the game to take before being booted
-        // back to the main menu.
+        // Here you would put any actions you
+        // want the game to take before being 
+        // booted back to the main menu.
+        cleanChapterHandler()
+
         alert('Game has ended! This is a temporary message.')
+    }
+
+    /**
+     * Perform any cleansing actions for the
+     * ChapterHandler when end game is called.
+     */
+    function cleanChapterHandler () {
+        Chapter = undefined
+        Step = 0
+        gameShouldEnd = false        
     }
 
 
